@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NYC Crime Analysis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('image/nyc.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .borough-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      max-width: 2200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .borough-row {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .borough-card {
+      background-size: cover;
+      background-position: center;
+      border-radius: 15px;
+      box-shadow: none;
+      width: 350px;
+      height: 260px;
+      padding: 20px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 0 0 350px;
+    }
+
+    .borough-card > div {
+      text-align: center;
+      margin: 0 auto;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3px;
+      border-radius: 8px;
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .borough-card h2 {
+      margin: 0;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      white-space: nowrap;
+    }
+
+    .borough-card ul {
+      padding-left: 14px;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="borough-container">
+    <div class="borough-row">
+      <a href="manhattan-data.html" class="borough-card" style="background-image: url('image/manhattan.jpg'); text-decoration: none;">
+        <div style="background: rgba(0,0,0,0.5); padding: 3px; border-radius: 8px;">
+          <h2>Manhattan</h2>
+          <ul>
+          </ul>
+        </div>
+      </a>
+
+      <a href="queens-data.html" class="borough-card" style="background-image: url('image/queens.webp'); text-decoration: none;">
+        <div style="background: rgba(0,0,0,0.5); padding: 3px; border-radius: 8px;">
+          <h2>Queens</h2>
+          <ul>
+          </ul>
+        </div>
+      </a>
+    </div>
+
+    <div class="borough-row">
+      <a href="brooklyn-data.html" class="borough-card" style="background-image: url('image/brooklyn.jpg'); text-decoration: none;">
+        <div style="background: rgba(0,0,0,0.5); padding: 3px; border-radius: 8px;">
+          <h2>Brooklyn</h2>
+          <ul>
+          </ul>
+        </div>
+      </a>
+
+      <a href="staten-island-data.html" class="borough-card" style="background-image: url('image/staten island.jpg'); text-decoration: none;">
+        <div style="background: rgba(0,0,0,0.5); padding: 3px; border-radius: 8px;">
+          <h2>Staten Island</h2>
+          <ul>
+          </ul>
+        </div>
+      </a>
+
+      <a href="bronx-data.html" class="borough-card" style="background-image: url('image/bronx.webp'); text-decoration: none;">
+        <div style="background: rgba(0,0,0,0.5); padding: 3px; border-radius: 8px;">
+          <h2>The Bronx</h2>
+          <ul>
+          </ul>
+        </div>
+      </a>
+    </div>
+  </div>  
+</body>
+</html>
