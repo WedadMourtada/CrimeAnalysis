@@ -4,19 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manhattan Crime Data</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: url('images/manhattan.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 100vh;
-        }
-    </style>
 </head>
 <body>
-    
+
+    <div id="crime-stats"></div>
+
+    <script>
+        fetch('/api/crime-data?borough=manhattan')
+            .then(response => response.json())
+            .then(data => {
+                const div = document.getElementById('crime-stats');
+                div.innerHTML = `
+                    <h2>Manhattan Crime Data</h2>
+                    <p><strong>Total Arrests:</strong> ${data.total_arrests}</p>
+                    <p><strong>Total Complaints:</strong> ${data.total_complaints}</p>
+                    <h3>Top 5 Crimes</h3>
+                    <ul>
+                        ${data.top_5_crimes.map(crime => `<li>${crime}</li>`).join('')}
+                    </ul>
+                `;
+            })
+            .catch(error => {
+                console.error('Error fetching crime data:', error);
+            });
+    </script>
+
 </body>
-</html> 
+</html>
