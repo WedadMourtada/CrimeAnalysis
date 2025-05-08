@@ -18,6 +18,9 @@
                     <h2>Brooklyn Crime Data</h2>
                     <p><strong>Total Arrests:</strong> ${data.total_arrests}</p>
                     <p><strong>Total Complaints:</strong> ${data.total_complaints}</p>
+                    <p><strong>Unemployment Rate:</strong> ${data.unemployment_rate}%</p>
+                    <p><strong>Median Income:</strong> $${data.median_income.toLocaleString()}</p>
+                    <p><strong>Education Level:</strong> ${data.education_level}% with Bachelor's or higher</p>
                     <h3>Top 5 Crimes</h3>
                     <ul>
                         ${data.top_5_crimes.map(crime => `<li>${crime}</li>`).join('')}
