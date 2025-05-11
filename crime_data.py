@@ -2,7 +2,17 @@ crime_data = {
     "Bronx": {
         "total_arrests": 19_283,
         "total_complaints": 37_512,
-        "top_5_crimes": ["Felony Assault", "Robbery", "Grand Larceny", "Burglary", "Petit Larceny"],
+        "unemployment_rate": 8.7,
+        "median_income": 43000,
+        "education_level": 78,
+        "top_5_crimes": {
+            "labels": ["Grand Larceny", "Assault", "Burglary", "Robbery", "Petit Larceny"],
+            "values": [5234, 4178, 3321, 2987, 2610]
+        },
+        "top_5_complaints": {
+            "labels": ["Noise Complaint", "Assault", "Harassment", "Drugs", "Vandalism"],
+            "values": [1200, 950, 800, 600, 400]
+        },
         "common_arrest_races": {
             "Black": 58,
             "Hispanic": 30,
@@ -21,7 +31,17 @@ crime_data = {
     "Brooklyn": {
         "total_arrests": 24_610,
         "total_complaints": 45_890,
-        "top_5_crimes": ["Grand Larceny", "Felony Assault", "Robbery", "Burglary", "Petit Larceny"],
+        "unemployment_rate": 7.2,
+        "median_income": 56000,
+        "education_level": 85,
+        "top_5_crimes": {
+            "labels": ["Grand Larceny", "Felony Assault", "Robbery", "Burglary", "Petit Larceny"],
+            "values": [6000, 5000, 4000, 3500, 3200]
+        },
+        "top_5_complaints": {
+            "labels": ["Noise Complaint", "Theft", "Assault", "Drugs", "Vandalism"],
+            "values": [1500, 1200, 1100, 900, 700]
+        },
         "common_arrest_races": {
             "Black": 50,
             "Hispanic": 28,
@@ -40,7 +60,17 @@ crime_data = {
     "Manhattan": {
         "total_arrests": 22_734,
         "total_complaints": 48_315,
-        "top_5_crimes": ["Grand Larceny", "Robbery", "Felony Assault", "Burglary", "Petit Larceny"],
+        "unemployment_rate": 5.9,
+        "median_income": 82000,
+        "education_level": 92,
+        "top_5_crimes": {
+            "labels": ["Grand Larceny", "Robbery", "Felony Assault", "Burglary", "Petit Larceny"],
+            "values": [7000, 4200, 3900, 3400, 3100]
+        },
+        "top_5_complaints": {
+            "labels": ["Noise Complaint", "Theft", "Assault", "Fraud", "Vandalism"],
+            "values": [1800, 1600, 1200, 1000, 800]
+        },
         "common_arrest_races": {
             "Black": 40,
             "Hispanic": 30,
@@ -59,7 +89,17 @@ crime_data = {
     "Queens": {
         "total_arrests": 18_920,
         "total_complaints": 35_770,
-        "top_5_crimes": ["Grand Larceny", "Robbery", "Felony Assault", "Burglary", "Petit Larceny"],
+        "unemployment_rate": 6.5,
+        "median_income": 67000,
+        "education_level": 88,
+        "top_5_crimes": {
+            "labels": ["Grand Larceny", "Robbery", "Felony Assault", "Burglary", "Petit Larceny"],
+            "values": [5000, 3500, 3200, 3000, 2700]
+        },
+        "top_5_complaints": {
+            "labels": ["Noise Complaint", "Theft", "Assault", "Drugs", "Vandalism"],
+            "values": [1400, 1100, 1000, 800, 600]
+        },
         "common_arrest_races": {
             "Hispanic": 35,
             "Black": 30,
@@ -78,7 +118,17 @@ crime_data = {
     "Staten Island": {
         "total_arrests": 4_123,
         "total_complaints": 7_982,
-        "top_5_crimes": ["Grand Larceny", "Burglary", "Felony Assault", "Robbery", "Petit Larceny"],
+        "unemployment_rate": 5.2,
+        "median_income": 79000,
+        "education_level": 90,
+        "top_5_crimes": {
+            "labels": ["Grand Larceny", "Burglary", "Felony Assault", "Robbery", "Petit Larceny"],
+            "values": [1200, 1100, 900, 800, 700]
+        },
+        "top_5_complaints": {
+            "labels": ["Noise Complaint", "Theft", "Assault", "Drugs", "Vandalism"],
+            "values": [500, 400, 350, 300, 200]
+        },
         "common_arrest_races": {
             "White": 45,
             "Black": 30,

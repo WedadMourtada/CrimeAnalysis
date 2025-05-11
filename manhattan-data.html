@@ -93,6 +93,15 @@
             flex: 1 1 350px;
             text-align: center;
         }
+        .chart-card .donut-container {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .summary {
             background: #fff;
             border-radius: 12px;
@@ -324,7 +333,9 @@
             </div>
             <div class="chart-card">
                 <h3>Arrest vs Complaint Ratio</h3>
-                <canvas id="ratioChart"></canvas>
+                <div class="donut-container">
+                    <canvas id="ratioChart" width="500" height="500"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -342,19 +353,18 @@
         fetch('/api/crime-data?borough=manhattan')
             .then(response => response.json())
             .then(data => {
-                // Info cards
-                document.getElementById('arrests').textContent = data.total_arrests.toLocaleString();
-                document.getElementById('complaints').textContent = data.total_complaints.toLocaleString();
-                document.getElementById('unemployment').textContent = data.unemployment_rate + '%';
-                document.getElementById('income').textContent = '$' + data.median_income.toLocaleString();
-                document.getElementById('education').textContent = data.education_level + '%';
+                document.getElementById('arrests').textContent = data.total_arrests?.toLocaleString() || '-';
+                document.getElementById('complaints').textContent = data.total_complaints?.toLocaleString() || '-';
+                document.getElementById('unemployment').textContent = (data.unemployment_rate !== undefined ? data.unemployment_rate + '%' : '-');
+                document.getElementById('income').textContent = (data.median_income !== undefined ? ('$' + data.median_income.toLocaleString()) : '-');
+                document.getElementById('education').textContent = (data.education_level !== undefined ? (data.education_level + '%') : '-');
 
-                // Top 5 Crimes Chart (realistic Manhattan data)
-                const crimeLabels = ['Grand Larceny', 'Assault', 'Burglary', 'Robbery', 'Petit Larceny'];
-                const crimeData = [5234, 4178, 3321, 2987, 2610];
+                // Top 5 Crimes Chart (dynamic)
+                const crimeLabels = data.top_5_crimes?.labels || [];
+                const crimeData = data.top_5_crimes?.values || [];
                 const crimeColors = ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f'];
 
-                new Chart(document.getElementById('crimeChart'), {
+                window.crimeChart = new Chart(document.getElementById('crimeChart'), {
                     type: 'bar',
                     data: {
                         labels: crimeLabels,
@@ -362,7 +372,7 @@
                             label: 'Incidents',
                             data: crimeData,
                             backgroundColor: crimeColors,
-                            borderRadius: 12 // Rounded bar corners
+                            borderRadius: 12
                         }]
                     },
                     options: {
@@ -379,31 +389,25 @@
                             }
                         },
                         scales: {
-                            x: { 
-                                ticks: { font: { size: 14 } }
-                            },
-                            y: { 
-                                beginAtZero: true,
-                                max: 6000,
-                                ticks: { font: { size: 14 } }
-                            }
+                            x: { ticks: { font: { size: 14 } } },
+                            y: { beginAtZero: true, max: Math.max(...crimeData, 6000), ticks: { font: { size: 14 } } }
                         }
                     }
                 });
 
-                // Top Complaint Types Chart (example data)
-                const complaintLabels = ['Noise Complaint', 'Assault', 'Harassment', 'Drugs', 'Vandalism'];
-                const complaintData = [1200, 950, 800, 600, 400];
+                // Top Complaint Types Chart (dynamic)
+                const complaintLabels = data.top_5_complaints?.labels || [];
+                const complaintData = data.top_5_complaints?.values || [];
                 const complaintColors = ['#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc949'];
 
                 let complaintChartType = 'bar';
-                let complaintChart;
+                window.complaintChart = null;
 
                 function createComplaintChart(type) {
-                    if (complaintChart) {
-                        complaintChart.destroy();
+                    if (window.complaintChart) {
+                        window.complaintChart.destroy();
                     }
-                    complaintChart = new Chart(document.getElementById('complaintChart'), {
+                    window.complaintChart = new Chart(document.getElementById('complaintChart'), {
                         type: type,
                         data: {
                             labels: complaintLabels,
@@ -459,7 +463,7 @@
                 });
 
                 // Arrest vs Complaint Ratio Donut
-                window.ratioChart = new Chart(document.getElementById('ratioChart'), {
+                new Chart(document.getElementById('ratioChart'), {
                     type: 'doughnut',
                     data: {
                         labels: ['Arrests', 'Complaints'],
