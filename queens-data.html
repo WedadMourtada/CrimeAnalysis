@@ -230,27 +230,27 @@
             <div class="info-card" data-stat="arrests" title="Total arrests made by NYPD in Queens this year.">
                 <i class="fas fa-shield-alt icon"></i>
                 <h3>Total Arrests</h3>
-                <div class="value" id="arrests"></div>
+                <div class="value" id="arrests">Loading...</div>
             </div>
             <div class="info-card" data-stat="complaints" title="Reported crime and quality-of-life complaints submitted by the public.">
                 <i class="fas fa-taxi icon"></i>
                 <h3>Total Complaints</h3>
-                <div class="value" id="complaints"></div>
+                <div class="value" id="complaints">Loading...</div>
             </div>
             <div class="info-card" data-stat="unemployment" title="Percentage of the labor force currently unemployed and looking for work.">
                 <i class="fas fa-briefcase icon"></i>
                 <h3>Unemployment Rate</h3>
-                <div class="value" id="unemployment"></div>
+                <div class="value" id="unemployment">Loading...</div>
             </div>
             <div class="info-card" data-stat="income" title="The midpoint of household income distribution in Queens.">
                 <i class="fas fa-dollar-sign icon"></i>
                 <h3>Median Income</h3>
-                <div class="value" id="income"></div>
+                <div class="value" id="income">Loading...</div>
             </div>
             <div class="info-card" data-stat="education" title="Percentage of adults with at least a high school diploma.">
                 <i class="fas fa-graduation-cap icon"></i>
                 <h3>Education Level</h3>
-                <div class="value" id="education"></div>
+                <div class="value" id="education">Loading...</div>
             </div>
         </div>
         <div id="stat-context-card"></div>
@@ -287,15 +287,55 @@
         </span>
     </footer>
     <script>
+        // Function to format numbers with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Function to format currency
+        function formatCurrency(num) {
+            return '$' + formatNumber(num);
+        }
+
+        // Function to format percentage
+        function formatPercentage(num) {
+            return num + '%';
+        }
+
+        // Function to fetch and update stats
+        async function updateBoroughStats() {
+            try {
+                const response = await fetch('/api/borough-stats?borough=Queens');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                // Update each stat with proper formatting
+                document.getElementById('arrests').textContent = formatNumber(data.total_arrests);
+                document.getElementById('complaints').textContent = formatNumber(data.total_complaints);
+                document.getElementById('unemployment').textContent = formatPercentage(data.unemployment_rate);
+                document.getElementById('income').textContent = formatCurrency(data.median_income);
+                document.getElementById('education').textContent = formatPercentage(data.education_level);
+
+            } catch (error) {
+                console.error('Error fetching borough stats:', error);
+                // Update all stats to show error state
+                ['arrests', 'complaints', 'unemployment', 'income', 'education'].forEach(id => {
+                    document.getElementById(id).textContent = 'Error loading data';
+                });
+            }
+        }
+
+        // Load stats when the page loads
+        window.addEventListener('load', updateBoroughStats);
+
+        // Refresh stats every 5 minutes
+        setInterval(updateBoroughStats, 5 * 60 * 1000);
+
         fetch('/api/crime-data?borough=queens')
             .then(response => response.json())
             .then(data => {
-                document.getElementById('arrests').textContent = data.total_arrests.toLocaleString();
-                document.getElementById('complaints').textContent = data.total_complaints.toLocaleString();
-                document.getElementById('unemployment').textContent = data.unemployment_rate + '%';
-                document.getElementById('income').textContent = '$' + data.median_income.toLocaleString();
-                document.getElementById('education').textContent = data.education_level + '%';
-
                 // Top 5 Crimes Chart (use Queens data if available, else use Manhattan's as placeholder)
                 const crimeLabels = ['Grand Larceny', 'Assault', 'Burglary', 'Robbery', 'Petit Larceny'];
                 const crimeData = [5234, 4178, 3321, 2987, 2610];
